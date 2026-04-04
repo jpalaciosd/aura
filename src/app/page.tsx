@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import AuraChat from "@/components/AuraChat";
 
 const WHATSAPP = "https://wa.me/573148915903?text=Hola%20AURA%2C%20quiero%20agendar%20una%20cita";
 
@@ -78,14 +79,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-pattern">
-      {/* WhatsApp floating */}
-      <a href={WHATSAPP} target="_blank" rel="noopener"
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110"
-        style={{ boxShadow: "0 4px 20px rgba(37,211,102,0.4)" }}>
-        <svg viewBox="0 0 32 32" width="32" height="32" fill="white">
-          <path d="M16 3C8.832 3 3 8.832 3 16c0 2.295.6 4.508 1.738 6.465L3 29l6.727-1.707A12.94 12.94 0 0016 29c7.168 0 13-5.832 13-13S23.168 3 16 3zm0 23.5c-2.07 0-4.047-.547-5.785-1.578l-.414-.246-4.293 1.09 1.113-4.18-.27-.427A10.46 10.46 0 014.5 16C4.5 9.66 9.66 4.5 16 4.5S27.5 9.66 27.5 16 22.34 26.5 16 26.5zm5.793-7.883c-.316-.16-1.871-.926-2.16-1.031-.29-.106-.5-.16-.711.16-.211.316-.816 1.031-.996 1.242-.184.21-.367.237-.683.078-.316-.16-1.332-.492-2.54-1.566-.937-.836-1.57-1.867-1.754-2.184-.184-.316-.02-.488.137-.645.14-.14.316-.368.473-.551.16-.184.211-.316.316-.527.106-.211.054-.395-.027-.551-.078-.16-.71-1.715-.973-2.348-.258-.617-.519-.535-.71-.543-.184-.008-.395-.01-.606-.01s-.551.078-.84.394c-.289.317-1.102 1.078-1.102 2.633s1.13 3.055 1.289 3.266c.16.21 2.219 3.39 5.379 4.754.75.324 1.336.519 1.793.664.754.238 1.44.207 1.98.125.605-.09 1.872-.766 2.137-1.504.266-.739.266-1.371.184-1.504-.078-.133-.29-.211-.605-.371z"/>
-        </svg>
-      </a>
+      {/* Aura Chat Bot */}
+      <AuraChat />
 
       {/* ── Navbar ── */}
       <nav className="fixed top-0 w-full z-40 bg-cream-50/90 backdrop-blur-xl border-b border-gold-200/30">
