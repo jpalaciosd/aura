@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import AuraChat from "@/components/AuraChat";
 
-const WHATSAPP = "https://wa.me/573103068683?text=Hola%20AURA%2C%20quiero%20agendar%20una%20cita";
+const WHATSAPP = "https://wa.me/573128200996?text=Hola%20AURA%2C%20quiero%20agendar%20una%20cita";
 
 /* ───── Services ───── */
 const SERVICIOS = [

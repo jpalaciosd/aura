@@ -19,7 +19,7 @@ async function getAIResponse(messages: Message[]): Promise<string> {
     const data = await res.json();
     return data.text;
   } catch {
-    return "Disculpa, tuve un problema técnico. 😅 Escríbenos por WhatsApp al +57 310 306 8683 y te atendemos de inmediato.";
+    return "Disculpa, tuve un problema técnico. 😅 Escríbenos por WhatsApp al +57 312 820 0996 y te atendemos de inmediato.";
   }
 }
 
@@ -245,7 +245,7 @@ export default function AuraChat() {
             {/* WhatsApp link */}
             <div className="px-4 pb-3 text-center">
               <a
-                href="https://wa.me/573103068683?text=Hola%20AURA%2C%20quiero%20agendar%20una%20cita"
+                href="https://wa.me/573128200996?text=Hola%20AURA%2C%20quiero%20agendar%20una%20cita"
                 target="_blank"
                 rel="noopener"
                 className="text-[11px] text-emerald-600 hover:text-emerald-700 transition"
