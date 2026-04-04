@@ -26,7 +26,7 @@ const SYSTEM_PROMPT = `Eres Aura, la asistente virtual de AURA Bienestar Estéti
 ## Datos del negocio
 - Nombre: AURA Bienestar Estético
 - Ubicación: Cali, Colombia
-- WhatsApp: +57 314 891 5903
+- WhatsApp: +57 310 306 8683
 - +200 clientas satisfechas, +5 años de experiencia
 - Atención personalizada, ambiente relajado y profesional
 
