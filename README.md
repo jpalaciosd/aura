@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AURA Bienestar Estético
 
-## Getting Started
+Landing + dashboard de clientas + panel admin para un centro de estética en Pasto, Colombia.
 
-First, run the development server:
+**Stack:** Next.js 14 (App Router), TypeScript, Tailwind, Framer Motion, Supabase (Postgres + Auth + Storage), OpenAI (chat + OCR de comprobantes), ElevenLabs (voz del chat).
+
+---
+
+## Setup
+
+### 1. Dependencias
+
+```bash
+npm install
+```
+
+### 2. Variables de entorno
+
+Copia `.env.example` a `.env.local` y rellena los valores. Como mínimo necesitas un proyecto Supabase y una API key de OpenAI.
+
+```bash
+cp .env.example .env.local
+```
+
+### 3. Supabase
+
+1. Crea un **proyecto nuevo** en [supabase.com](https://supabase.com) (no compartir con otros productos).
+2. **Authentication → Providers → Google**: habilítalo. Sigue [esta guía](https://supabase.com/docs/guides/auth/social-login/auth-google) para crear el OAuth client en Google Cloud y pegar `Client ID` + `Client Secret` en Supabase. La URL de callback la copia el dashboard.
+3. **Storage → Buckets**: crea dos buckets:
+   - `receipts` — **privado** (comprobantes de pago)
+   - `gallery`  — **público** (fotos antes/después y testimonios)
+4. **SQL Editor**: pega y ejecuta el contenido de [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql).
+5. Copia `Project URL` y `anon`/`service_role` keys a `.env.local`.
+
+### 4. Promover tu admin inicial
+
+Tras hacer login con Google una primera vez, ejecuta en el SQL Editor de Supabase:
+
+```sql
+update public.users set role = 'admin'
+where email = 'tu-email@gmail.com';
+```
+
+(Reemplaza con el valor de `ADMIN_EMAIL_SEED`.)
+
+### 5. Correr en local
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+- `npm run dev` — desarrollo
+- `npm run build` — build de producción
+- `npm run start` — servir build
+- `npm run lint` — ESLint
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estructura
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── page.tsx                  ← landing pública
+│   ├── login/                    ← login Google
+│   ├── auth/                     ← callback OAuth
+│   ├── dashboard/                ← área cliente (protegida)
+│   ├── admin/                    ← panel admin (role=admin)
+│   └── api/                      ← chat, tts, booking, payments, coupons, admin
+├── components/
+├── contexts/AuthContext.tsx
+├── lib/                          ← supabase clients, OCR, cupones, slots
+└── middleware.ts                 ← refresh de sesión
+supabase/migrations/              ← esquema SQL
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Flujos principales
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Cliente**: Landing → `Agendar online` → Login Google → Wizard (servicio → fecha/hora → cupón → subir comprobante Nequi) → confirmación automática con código de canje.
+
+**Admin**: `/admin` → KPIs, cola de pagos en revisión, CRUD de cupones, servicios, disponibilidad, galería y citas.
+
+---
+
+## Despliegue
+
+Vercel-ready. Configura las mismas variables de entorno en el dashboard de Vercel y añade la URL de producción al callback de Google OAuth en Supabase.
+
+---
+
+Powered by [AINovaX](https://ainovax.vercel.app).

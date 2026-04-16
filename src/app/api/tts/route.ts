@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimit, clientKey } from "@/lib/rate-limit";
 
 const ELEVENLABS_KEY = process.env.ELEVENLABS_API_KEY || "";
 const VOICE_ID = "cgSgspJ2msm6clMCkdW9"; // Jessica - multilingual
 const MODEL = "eleven_multilingual_v2";
 
 export async function POST(req: NextRequest) {
+  const rl = rateLimit(`tts:${clientKey(req)}`, 20, 60_000);
+  if (!rl.ok) return NextResponse.json({ error: "Rate limit" }, { status: 429 });
+
   try {
     const { text } = await req.json();
     if (!text || !ELEVENLABS_KEY) return NextResponse.json({ error: "Missing config" }, { status: 400 });

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className="scroll-smooth">
-      <body className="antialiased font-sans">{children}</body>
+      <body className="antialiased font-body selection:bg-primary-amber selection:text-on-primary-amber">
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

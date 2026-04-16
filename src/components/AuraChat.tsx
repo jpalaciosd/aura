@@ -64,8 +64,8 @@ async function speak(text: string, onEnd: () => void) {
 /* ───── Quick Actions ───── */
 const QUICK = [
   "¿Qué servicios tienen?",
+  "Agendar online",
   "Maderoterapia",
-  "Quiero agendar",
   "Precios",
 ];
 
@@ -73,7 +73,7 @@ const QUICK = [
 export default function AuraChat() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", text: "¡Hola! 🌿 Soy Aura, tu asistente de bienestar. Cuéntame, ¿qué tratamiento te interesa o en qué puedo ayudarte?" },
+    { role: "assistant", text: "¡Hola! 🌿 Soy Aura, tu asistente de bienestar. Puedes **agendar online** en segundos desde nuestra web o contarme qué tratamiento te interesa. ¿En qué te ayudo?" },
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
@@ -242,15 +242,18 @@ export default function AuraChat() {
               </button>
             </div>
 
-            {/* WhatsApp link */}
-            <div className="px-4 pb-3 text-center">
+            {/* Agendar online + WhatsApp */}
+            <div className="px-4 pb-3 text-center space-y-1">
+              <a href="/login?redirect=/dashboard/agendar" className="block text-[11px] font-semibold text-gold-700 hover:text-gold-800 transition">
+                ✨ Agendar online en segundos
+              </a>
               <a
                 href="https://wa.me/573128200996?text=Hola%20AURA%2C%20quiero%20agendar%20una%20cita"
                 target="_blank"
                 rel="noopener"
-                className="text-[11px] text-emerald-600 hover:text-emerald-700 transition"
+                className="block text-[11px] text-emerald-600 hover:text-emerald-700 transition"
               >
-                📱 ¿Prefieres WhatsApp? Escríbenos directo
+                📱 ¿Prefieres WhatsApp?
               </a>
             </div>
           </motion.div>
